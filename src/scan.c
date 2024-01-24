@@ -176,7 +176,7 @@ find_targets (FILE * fp1, FILE * fp2, FILE * fpout, char *filename)
 
 	  /* Get sequence lengths for query and reference */
 	  seqlen1 = strlen (query);
-	  seqlen1_global=seqlen1;
+	  int seqlen1_global=seqlen1;
           seqlen2 = strlen (reference);
 
           length_3p_for_weighting=seqlen1-length_5p_for_weighting;

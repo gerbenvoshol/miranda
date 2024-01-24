@@ -49,6 +49,32 @@
 #include "utils.h"
 #include "miranda.h"
 
+/* Set Default Parameter Values */
+
+int length_5p_for_weighting = 8;   /* The 5' sequence length to be weighed  except for the last residue*/
+int length_3p_for_weighting = 0;
+int overlap_cutoff = 0;
+int CURR = 0;
+double scale = 4.0;     /* The 5' miRNA scaling parameter             */
+int nomodel = 0;      /* Strict alignment model on/off              */
+double gap_open = -8;   /* Gap-open Penalty                           */
+double gap_extend = -2;   /* Gap-extend Penalty                         */
+double score_threshold = 50;    /* SW Score Threshold for reporting hits      */
+double energy_threshold = -20;  /* Energy Threshold (DG) for reporting hits   */
+int verbosity = 1;    /* Verbose mode on/off                        */
+int outfile = 0;      /* Dump to file on/off                        */
+int truncated = 0;    /* Truncate sequences on/off                  */
+int do_shuffle = 0;   /* Generate statistics using seq shuffling    */
+int no_energy = 0;    /* Turn off Vienna Energy Calcs - FASTER      */
+double average = 0;     /* Some statistics for shuffled searches      */
+double stdev = 0;
+double z_threshold = 5.0;   /* Z-Score threshold >=           */
+int shuffle_window = 10;    /* Size of shuffling window       */
+int total_shuffles = 100;   /* Total number of shuffles       */
+unsigned int uniform = 0;     /* Uniform Shuffling mode on/off  */
+int total_hits = 0;   /* Generic counter for alignments */
+FILE *fpout = NULL;
+
 int
 main (int argc, char *argv[])
 {
@@ -58,32 +84,10 @@ main (int argc, char *argv[])
   char fileout[200];
   FILE *fp1 = 0;
   FILE *fp2 = 0;
-  FILE *fpout = stdout;
-
-  /* Set Default Parameter Values */
-
- length_5p_for_weighting=8.0;   /* The 5' sequence length to be weighed  except for the last residue*/ 
-  scale = 4.0;			/* The 5' miRNA scaling parameter             */
-  nomodel = 0;			/* Strict alignment model on/off              */
-  gap_open = -8;		/* Gap-open Penalty                           */
-  gap_extend = -2;		/* Gap-extend Penalty                         */
-  score_threshold = 50;		/* SW Score Threshold for reporting hits      */
-  energy_threshold = -20;	/* Energy Threshold (DG) for reporting hits   */
-  verbosity = 1;		/* Verbose mode on/off                        */
-  outfile = 0;			/* Dump to file on/off                        */
-  truncated = 0;		/* Truncate sequences on/off                  */
-  do_shuffle = 0;		/* Generate statistics using seq shuffling    */
-  no_energy = 0;		/* Turn off Vienna Energy Calcs - FASTER      */
-  average = 0;			/* Some statistics for shuffled searches      */
-  stdev = 0;
-  z_threshold = 5.0;		/* Z-Score threshold >=           */
-  shuffle_window = 10;		/* Size of shuffling window       */
-  total_shuffles = 100;		/* Total number of shuffles       */
-  uniform = 0;			/* Uniform Shuffling mode on/off  */
-  total_hits = 0;		/* Generic counter for alignments */
+  fpout = stdout; 
 
   /* Command-line parsing begins here */
-  parse_command_line (argc, argv, &filename1, &filename2, &fileout);
+  parse_command_line (argc, argv, filename1, filename2, fileout);
 
   /* Now check our input and output files can be accessed / created */
 

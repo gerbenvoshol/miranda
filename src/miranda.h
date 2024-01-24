@@ -42,42 +42,42 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
+#ifndef __MIRANDA_H
+#define __MIRANDA_H
 
 /* Setup Traceback Flags */
 #define DIAG 0
 #define UP 1
 #define LEFT -1
-int CURR;
+extern int CURR;
 /* Setup Strands */
 #define FORWARD 0
 #define REVERSE 1
 
 /* Adjustable Algorithm Parameters */
-double scale;
-int nomodel;
-double gap_open;
-double gap_extend;
-double average;
-double stdev;
-double z_threshold;
-double score_threshold;
-double energy_threshold;
-int length_5p_for_weighting;
-int length_3p_for_weighting;
-int do_shuffle;
-int no_energy;
-int shuffle_window;
-int total_shuffles;
-int verbosity;
-unsigned int uniform;
-int outfile;
-int truncated;
-int total_hits;
-int seqlen1_global;
-int overlap_cutoff;
-/* Output Filehandle */
-FILE *fpout;
+extern double scale;
+extern int nomodel;
+extern double gap_open;
+extern double gap_extend;
+extern double average;
+extern double stdev;
+extern double z_threshold;
+extern double score_threshold;
+extern double energy_threshold;
+extern int length_5p_for_weighting;
+extern int length_3p_for_weighting;
+extern int do_shuffle;
+extern int no_energy;
+extern int shuffle_window;
+extern int total_shuffles;
+extern int verbosity;
+extern unsigned int uniform;
+extern int outfile;
+extern int truncated;
+extern int total_hits;
+extern int seqlen1_global;
+extern int overlap_cutoff;
+extern FILE *fpout;
 
 /* Generic structure to store individual hit information */
 typedef struct hit_struct
@@ -102,7 +102,7 @@ typedef struct final_score
   double max_hit;
   double max_score;
   double total_score;
-  char positional[1000];
+  char positional[1024];
 }
 final_score;
 
@@ -164,3 +164,9 @@ double do_alignment (int **, int ***, int **, int **, int **, int **, char *, ch
 void print_banner();
 void print_usage();
 void print_options();
+
+/* output.c */
+int parse_command_line (int argc, char *argv[], char *filename1, char *filename2,
+        char *fileout);
+
+#endif

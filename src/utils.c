@@ -98,7 +98,6 @@ clear_hit (hit_struct * hit, int seqlen1, int seqlen2)
 double
 max (double a, double b, double c)
 {
-
   if ((a >= b) && (a >= c))
     {
       CURR = DIAG;
